@@ -1,0 +1,19 @@
+#!/bin/bash
+
+## This script generates a brainmask using a subject T1 image
+## Brainmask generation is only performed if brainMask is set to true in config.json
+## brainmask generation uses BET
+
+subT1=`jq -r '.t1' config.json`
+brainMask=`jq -r '.brainMask' config.json`
+
+## only run if brainmask is toggled to true (if the subject needs a brainmask file generated)
+if $brainMask; then
+	echo "Generating brainmask..."
+	bet $subT1 'skullstrip_brain.nii.gz' -m
+
+else
+	echo "Skipping brainmask generation. To change, set brainMask to 'true' in the config.json file"
+fi
+
+echo "Mask generated"

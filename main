@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#bet
+./brainMask
+
+#ants
+./xformT1
+
+#inverse ants
+./inverseXformVTA
+
+#threshold
+./thresholdVTA
+
+#binarize
+./binarizeVTA
+
+#split
+./splitVTA

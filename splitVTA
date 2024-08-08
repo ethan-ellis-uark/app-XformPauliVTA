@@ -1,0 +1,18 @@
+#!/bin/bash
+
+## this script splits the binarized VTA ROI into left and right hemispheres
+## this is only performed if split is set to true in the config.json file
+## splitting requires 3Dcalc
+
+thr=`jq -r '.maskThreshold' config.json`
+binVTA='ants_xform_vta_thr'$thr'_bin.nii.gz'
+split=`jq -r '.split' config.json`
+
+if $split; then
+	echo "Splitting VTA ROI into left and right hemispheres..."
+	3dcalc -a $binVTA -prefix 'rh_ants_xform_vta_thr'$thr'_bin.nii.gz' -expr 'a*isnegative(x)'
+	3dcalc -a $binVTA -prefix 'lh_ants_xform_vta_thr'$thr'_bin.nii.gz' -expr 'a*ispositive(x)'
+	echo "VTA ROI splitting complete"
+else
+	echo "Splitting VTA ROI will be skipped. To change, set 'split' to true in the config.json file"
+fi

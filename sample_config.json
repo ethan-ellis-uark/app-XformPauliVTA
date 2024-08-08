@@ -1,0 +1,7 @@
+{
+	"t1": "/mnt/bacon/projects/abcd/scripts/brainlife_testdata/t1.nii.gz",
+	"brainMask": true,
+	"maskThreshold": 0.3,
+	"binarize": true,
+	"split": true
+}

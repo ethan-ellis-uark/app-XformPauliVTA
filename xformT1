@@ -1,0 +1,33 @@
+#!/bin/bash
+
+## generates affine and warp transform files between subject space and standard space of pauli atlas
+## transform uses ANTs and ITK
+## transform requires both a brain image (t1) and a brain mask
+
+subT1=`jq -r '.t1' config.json`
+subMask='skullstrip_brain_mask.nii.gz'
+standardBrain='masks/MNI152_T1_1mm_brain.nii.gz'
+standardMask='masks/MNI152_T1_1mm_brain_mask.nii.gz'
+
+echo "Running ANTs xform..."
+
+antsRegistration -v -d 3 -o 'ants_xform' -n Linear \
+	-r [$standardBrain,$subT1,1] \
+	-x [$standardMask,$subMask] \
+	-t Rigid[0.1] \
+		-m MI[$standardBrain,$subT1,1,32,Regular,0.25] \
+		-c [500x250x125,1e-6,10] \
+		-s 8x4x2 \
+		-f 8x4x2 \
+	-t Affine[0.1] \
+		-m MI[$standardBrain,$subT1,1,32,Regular,0.25] \
+		-c [500x250x125,1e-6,10] \
+		-s 8x4x2 \
+		-f 8x4x2 \
+	-t SyN[0.25] \
+		-m CC[$standardBrain,$subT1,1,4] \
+		-c [500x250x125,1e-6,10] \
+		-s 8x4x2 \
+		-f 8x4x2
+
+echo "ANTs xform completed"

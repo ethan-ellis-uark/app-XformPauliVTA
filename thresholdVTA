@@ -1,0 +1,15 @@
+#!/bin/bash
+
+## this script threshold the xformed Pauli VTA roi created by inverseXformVTA
+## threshold values are specified in the test_config.json file
+## to forgo thresholding, enter a value of 0 into the test_config.json file
+## thresholding requires fslmaths
+
+subVTA='ants_xform_vta.nii.gz'
+thresh=`jq -r '.maskThreshold' config.json`
+
+echo "Thresholding VTA ROI..."
+
+fslmaths $subVTA -thr $thresh "ants_xform_vta_thr"$thresh".nii.gz"
+
+echo "Thresholding completed"

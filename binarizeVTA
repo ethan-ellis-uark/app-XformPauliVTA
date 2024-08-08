@@ -1,0 +1,17 @@
+#!/bin/bash
+
+## this script binarizes the thresholded VTA roi created by thresholdVTA
+## binarization is only performed if binarize is set to true in the config.json file
+## binarization requires fslmaths
+
+threshold=`jq -r '.maskThreshold' config.json`
+thrVTA='ants_xform_vta_thr'$threshold'.nii.gz'
+binarize=`jq -r '.binarize' config.json`
+
+if $binarize; then
+	echo "Binarizing VTA ROI..."
+	fslmaths $thrVTA -bin 'ants_xform_vta_thr'$threshold'_bin.nii.gz'
+	echo "Binarization finished"
+else
+	echo "Skipping binarization. To change, set binarization to 'true' in config.json file"
+fi
