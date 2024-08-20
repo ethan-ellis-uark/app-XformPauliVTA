@@ -16,7 +16,7 @@ time singularity exec -e docker://brainlife/ants:2.2.0-1bc ./inverseXformVTA
 time singularity exec -e docker://brainlife/fsl:5.0.9 ./thresholdVTA
 
 #binarize
-time singularity exec -e docker://brainlife/afni:16.3.0 ./binarizeVTA
+time singularity exec -e docker://brainlife/fsl:5.0.9 ./binarizeVTA
 
 #split
 time singularity exec -e docker://brainlife/afni:16.3.0 ./splitVTA
