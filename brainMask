@@ -11,9 +11,8 @@ brainMask=`jq -r '.brainMask' config.json`
 if $brainMask; then
 	echo "Generating brainmask..."
 	bet $subT1 'skullstrip_brain.nii.gz' -m
+	echo "Mask generated"
 
 else
 	echo "Skipping brainmask generation. To change, set brainMask to 'true' in the config.json file"
 fi
-
-echo "Mask generated"
