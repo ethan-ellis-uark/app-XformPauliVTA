@@ -4,16 +4,16 @@
 #PBS -l walltime=3:00:00
 
 #bet
-time singularity exec docker://brainlife/fsl:5.0.9 ./brainMask
+time singularity exec -e docker://brainlife/fsl:5.0.9 ./brainMask
 
 #ants
-time singularity exec docker://brainlife/ants:2.2.0-1bc ./xformT1
+time singularity exec -e docker://brainlife/ants:2.2.0-1bc ./xformT1
 
 #inverse ants
-time singularity exec docker://brainlife/ants:2.2.0-1bc ./inverseXformVTA
+time singularity exec -e docker://brainlife/ants:2.2.0-1bc ./inverseXformVTA
 
 #threshold
-time singularity exec docker://brainlife/fsl:5.0.9 ./thresholdVTA
+time singularity exec -e docker://brainlife/fsl:5.0.9 ./thresholdVTA
 
 #binarize
 time singularity exec -e docker://brainlife/afni:16.3.0 ./binarizeVTA
