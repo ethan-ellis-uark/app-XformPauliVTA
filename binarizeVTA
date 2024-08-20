@@ -5,12 +5,12 @@
 ## binarization requires fslmaths
 
 threshold=`jq -r '.maskThreshold' config.json`
-thrVTA='ants_xform_vta_thr'$threshold'.nii.gz'
+thrVTA='ROIs/ants_xform_vta_thr'$threshold'.nii.gz'
 binarize=`jq -r '.binarize' config.json`
 
 if $binarize; then
 	echo "Binarizing VTA ROI..."
-	fslmaths $thrVTA -bin 'ants_xform_vta_thr'$threshold'_bin.nii.gz'
+	fslmaths $thrVTA -bin 'ROIs/ants_xform_vta_thr'$threshold'_bin.nii.gz'
 	echo "Binarization finished"
 else
 	echo "Skipping binarization. To change, set binarization to 'true' in config.json file"
