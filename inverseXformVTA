@@ -6,8 +6,8 @@
 
 subT1=`jq -r '.t1' config.json`
 VTA='masks/MNI152_prob_atlas_vta_pauli.nii.gz'
-affine='ants_xform0GenericAffine.mat'
-invWarp='ants_xform1InverseWarp.nii.gz'
+affine='xform/ants_xform0GenericAffine.mat'
+invWarp='xform/ants_xform1InverseWarp.nii.gz'
 
 echo "Warping Pauli VTA ROI into subject space..."
 
@@ -16,6 +16,6 @@ antsApplyTransforms -d 3 \
 	-r $subT1 \
 	-t [$affine, 1] \
 	-t $invWarp \
-	-o 'ants_xform_vta.nii.gz'
+	-o 'ROIs/ants_xform_vta.nii.gz'
 
 echo "Pauli VTA ROI xformed into subject space"
