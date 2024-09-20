@@ -16,6 +16,6 @@ antsApplyTransforms -d 3 \
 	-r $subT1 \
 	-t [$affine, 1] \
 	-t $invWarp \
-	-o 'ROIs/ants_xform_vta.nii.gz'
+	-o 'ROIs/ants_xform_vta_mask.nii.gz'
 
 echo "Pauli VTA ROI xformed into subject space"
