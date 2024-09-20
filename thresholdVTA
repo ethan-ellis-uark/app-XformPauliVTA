@@ -10,6 +10,6 @@ thresh=`jq -r '.maskThreshold' config.json`
 
 echo "Thresholding VTA ROI..."
 
-fslmaths $subVTA -thr $thresh "ROIs/ants_xform_vta_mask_thr"$thresh".nii.gz"
+fslmaths $subVTA -thr $thresh "ROIs/ants_xform_vta_thr"$thresh"_mask.nii.gz"
 
 echo "Thresholding completed"
