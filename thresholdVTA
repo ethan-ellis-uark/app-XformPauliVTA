@@ -5,11 +5,11 @@
 ## to forgo thresholding, enter a value of 0 into the test_config.json file
 ## thresholding requires fslmaths
 
-subVTA='ROIs/ants_xform_vta.nii.gz'
+subVTA='ROIs/ants_xform_vta_mask.nii.gz'
 thresh=`jq -r '.maskThreshold' config.json`
 
 echo "Thresholding VTA ROI..."
 
-fslmaths $subVTA -thr $thresh "ROIs/ants_xform_vta_thr"$thresh".nii.gz"
+fslmaths $subVTA -thr $thresh "ROIs/ants_xform_vta_mask_thr"$thresh".nii.gz"
 
 echo "Thresholding completed"
