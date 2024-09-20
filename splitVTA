@@ -5,13 +5,13 @@
 ## splitting requires 3Dcalc
 
 thr=`jq -r '.maskThreshold' config.json`
-binVTA='ROIs/ants_xform_vta_thr'$thr'_bin.nii.gz'
+binVTA='ROIs/ants_xform_vta_thr'$thr'_bin_mask.nii.gz'
 split=`jq -r '.split' config.json`
 
 if $split; then
 	echo "Splitting VTA ROI into left and right hemispheres..."
-	3dcalc -a $binVTA -prefix 'ROIs/rh_ants_xform_vta_thr'$thr'_bin.nii.gz' -expr 'a*isnegative(x)'
-	3dcalc -a $binVTA -prefix 'ROIs/lh_ants_xform_vta_thr'$thr'_bin.nii.gz' -expr 'a*ispositive(x)'
+	3dcalc -a $binVTA -prefix 'ROIs/rh_ants_xform_vta_thr'$thr'_bin_mask.nii.gz' -expr 'a*isnegative(x)'
+	3dcalc -a $binVTA -prefix 'ROIs/lh_ants_xform_vta_thr'$thr'_bin_mask.nii.gz' -expr 'a*ispositive(x)'
 	echo "VTA ROI splitting complete"
 else
 	echo "Splitting VTA ROI will be skipped. To change, set 'split' to true in the config.json file"
